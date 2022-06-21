@@ -2,8 +2,10 @@
 const express = require('express')
 const router = express.Router()
 const users = require('./modules/users')
+const home = require('./modules/home')
 
 // Guiding request into route
 router.use('/users', users)
+router.use('/', home)
 
 module.exports = router
