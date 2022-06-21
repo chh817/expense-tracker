@@ -7,6 +7,8 @@ if (process.env.NOD_ENV !== 'production') {
 }
 const { engine } = require('express-handlebars')
 
+const routes = require('./routes')
+
 // Requiring mongoose
 require('./config/mongoose')
 
@@ -20,11 +22,8 @@ app.engine('hbs', engine({
 
 
 
-
-
-
-
-
+// Guiding request into route
+app.use(routes)
 
 // Start and listen on the Express server
 app.listen(port, () => {
