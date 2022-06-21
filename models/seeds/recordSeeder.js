@@ -16,28 +16,28 @@ const seedUsers = [
     password: '123',
     ownedRecords: [
       {
-        "name": "午餐",
-        "category": "餐飲食品",
-        "date": "2019-04-23",
-        "amount": 60
+        'name': '午餐',
+        'date': '2019-04-23',
+        'category': '餐飲食品',
+        'amount': 60
       },
       {
-        "name": "晚餐",
-        "category": "餐飲食品",
-        "date": "2019-04-23",
-        "amount": 60
+        'name': '晚餐',
+        'date': '2019-04-23',
+        'category': '餐飲食品',
+        'amount': 60
       },
       {
-        "name": "捷運",
-        "category": "交通出行",
-        "date": "2019-04-23",
-        "amount": 120
+        'name': '捷運',
+        'date': '2019-04-23',
+        'category': '交通出行',
+        'amount': 120
       },
       {
-        "name": "租金",
-        "category": "家居物業",
-        "date": "2015-04-01",
-        "amount": 25000
+        'name': '租金',
+        'date': '2019-04-01',
+        'category': '家居物業',
+        'amount': 25000
       }
     ]
   },
@@ -47,10 +47,10 @@ const seedUsers = [
     password: '123',
     ownedRecords: [
       {
-        "name": "電影：驚奇隊長",
-        "category": "休閒娛樂",
-        "date": "2019-04-23",
-        "amount": 220
+        'name': '電影: 驚奇隊長',
+        'date': '2019-04-23',
+        'category': '休閒娛樂',
+        'amount': 220
       }
     ]
   }
@@ -77,9 +77,10 @@ db.once('open', () => {
             .then(category => {
               const categoryId = category._id
               return Record.create({
-                name: category.name,
-                date: category.date,
-                amount: category.amount,
+                name: ownedRecord.name,
+                date: ownedRecord.date,
+                category: ownedRecord.category,
+                amount: ownedRecord.amount,
                 userId: userId,
                 categoryId: categoryId
               })

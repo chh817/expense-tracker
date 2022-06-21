@@ -11,6 +11,7 @@ router.get('/login', (req, res) => res.render('login'))
 router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login',
   successRedirect: '/',
+  failureFlash: true
 }))
 
 // Route for register page
@@ -62,6 +63,7 @@ router.post('/register', (req, res) => {
 // Route for user logout
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('successMsg', '你已經成功登出。')
   res.redirect('/users/login')
 })
 

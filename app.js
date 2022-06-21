@@ -10,6 +10,8 @@ if (process.env.NOD_ENV !== 'production') {
 const { engine } = require('express-handlebars')
 const routes = require('./routes')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+const flash = require('connect-flash')
 
 // Requiring mongoose
 require('./config/mongoose')
@@ -30,13 +32,22 @@ app.use(session({
 // Use body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// Use method-override
+app.use(methodOverride('_method'))
+
 // Use passport
 usePassport(app)
+
+// Use connect-flash
+app.use(flash())
 
 // Transfer req date to res
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.successMsg = req.flash('successMsg')
+  res.locals.warningMsg = req.flash('warningMsg')
+  res.locals.error = req.flash('error')
   next()
 })
 
