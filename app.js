@@ -12,6 +12,8 @@ const routes = require('./routes')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
+const helpers = require('handlebars-helpers')
+const comparison = helpers.comparison()
 
 // Requiring mongoose
 require('./config/mongoose')

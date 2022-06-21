@@ -7,23 +7,22 @@ const Category = require('../../models/category')
 // Route for index page
 router.get('/', (req, res) => {
   const userId = req.user._id
-  const select = req.query.select || '全部'
+  const select = req.query.select || _id
   let totalAmount = 0
-  Record.find({ userId, select })
-    .sort(select)
+  const categoryList = []
+  Category.find({ select })
     .lean()
-    .then(records => {
-      Promise.all(Array.from(records, record => {
-        totalAmount += record.amount
-        Category.findOne({ select })
-          .lean()
-          .then(category => {
-            const categories = []
-            categories.push(category)
-          })
-      }))
-      return res.render('index', { totalAmount, records, categories })
-    })
+    .then(categorySelected => Promise.all(Array.from(categorySelected, category => {
+      categoryList.push[{ category }]
+      const categoryId = category._id
+      return Record.find({ userId, categoryId })
+        .sort(categoryId)
+        .lean()
+        .then(records => {
+          Promise.all(Array.from(records, record => totalAmount += record.amount))
+          return res.render('index', { totalAmount, records, categoryList, select })
+        })
+    })))
     .catch(err => console.error(err))
 })
 

@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
     .lean()
     .then(category => {
       const categoryId = category._id
-      return Record.create({ name, date, category, amount, userId, categoryId })
+      return Record.create({ name, date, amount, userId, categoryId })
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     })
@@ -25,15 +25,21 @@ router.get('/:id/edit', (req, res) => {
   const _id = req.params.id
   Record.findOne({ _id, userId })
     .lean()
-    .then(record => res.render('edit', { record }))
+    .then(record => {
+      const categoryId = record.categoryId
+      Category.findOne({ categoryId })
+        .lean()
+        .then(category => res.render('edit', { record, category }))
+    })
     .catch(err => console.log(err))
 })
 
 // Route for editing the record info 
 router.put("/:id", (req, res) => {
+  const { name, date, category, amount } = req.body
   const userId = req.user._id
   const _id = req.params.id
-  Restaurant.findOneAndUpdate({ _id, userId }, req.body)
+  Record.findOneAndUpdate({ _id, userId }, { name, date, amount })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
@@ -42,7 +48,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  Restaurant.findOneAndDelete({ _id, userId })
+  Record.findOneAndDelete({ _id, userId })
     .then(() => res.redirect("/"))
     .catch(error => console.log(error))
 })

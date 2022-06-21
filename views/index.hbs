@@ -4,11 +4,11 @@
       <div class="input-group">
         <select class="form-select" name="select" id="select" onchange="this.form.submit()" aria-label="">
           <option>類別</option>
-          <option value="家居物業">家居物業</option>
-          <option value="交通出行">交通出行</option>
-          <option value="休閒娛樂">休閒娛樂</option>
-          <option value="餐飲食品">餐飲食品</option>
-          <option value="其他">其他</option>
+          <option value="家居物業" {{#is select '家居物業' }}selected{{/is}}>家居物業</option>
+          <option value="交通出行" {{#is select '交通出行' }}selected{{/is}}>交通出行</option>
+          <option value="休閒娛樂" {{#is select '休閒娛樂' }}selected{{/is}}>休閒娛樂</option>
+          <option value="餐飲食品" {{#is select '餐飲食品' }}selected{{/is}}>餐飲食品</option>
+          <option value="其他" {{#is select '其他' }}selected{{/is}}>其他</option>
         </select>
       </div>
     </div>
@@ -22,7 +22,7 @@
       {{#each records}}
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          {{#each categories}}
+          {{#each categoryList}}
           <i class="{{this.icon}}"></i>
           {{/each}}
           <div class="fw-bold">{{this.name}}</div>
