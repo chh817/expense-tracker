@@ -71,14 +71,18 @@ db.once('open', () => {
         const userId = user._id
         const ownedRecords = seedUser.ownedRecords
         return Promise.all(Array.from(ownedRecords, ownedRecord => {
-          ownedRecord.userId = userId
           return Category
             .findOne({ category: ownedRecord.category })
             .lean()
             .then(category => {
               const categoryId = category._id
-              ownedRecord.categoryId = categoryId
-              return Record.create(ownedRecord)
+              return Record.create({
+                name: category.name,
+                date: category.date,
+                amount: category.amount,
+                userId: userId,
+                categoryId: categoryId
+              })
             })
         }))
       })
