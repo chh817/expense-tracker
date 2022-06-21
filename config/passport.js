@@ -2,6 +2,7 @@
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const User = require('../models/user')
+const bcrypt = require('bcryptjs')
 
 
 module.exports = app => {
@@ -10,13 +11,12 @@ module.exports = app => {
   passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
     User.findOne({ email })
       .then(user => {
-        if (!user) {
-          return done(null, false, req.flash('error', 'That email is not registered!'))
-        }
-        if (user.password !== password) {
-          return done(null, false, req.flash('error', 'Incorrect password!'))
-        }
-        return done(null, user)
+        if (!user) return done(null, false, req.flash('error', 'That email is not registered!'))
+        return bcrypt.compare(password, user.password)
+          .then(isMatch => {
+            if (!isMatch) return done(null, false, req.flash('error', 'Incorrect password!'))
+            return done(null, user)
+          })
       })
       .catch(err => done(err, false))
   }))
