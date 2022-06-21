@@ -1,6 +1,7 @@
 // Assign variables
 const express = require('express')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 const app = express()
 const port = 3000 || process.env.PORT
 if (process.env.NOD_ENV !== 'production') {
@@ -28,6 +29,9 @@ app.use(session({
 
 // Use body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// Use passport
+usePassport(app)
 
 // Guiding request into route
 app.use(routes)
