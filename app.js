@@ -1,5 +1,6 @@
 // Assign variables
 const express = require('express')
+const session = require('express-session')
 const app = express()
 const port = 3000 || process.env.PORT
 if (process.env.NOD_ENV !== 'production') {
@@ -16,6 +17,13 @@ require('./config/mongoose')
 app.set('view engine', 'hbs')
 app.engine('hbs', engine({
   defaultLayout: "main", extname: '.hbs'
+}))
+
+// Use express-session
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
 }))
 
 // Use body-parser
