@@ -6,8 +6,8 @@ if (process.env.NOD_ENV !== 'production') {
   require('dotenv').config()
 }
 const { engine } = require('express-handlebars')
-
 const routes = require('./routes')
+const bodyParser = require('body-parser')
 
 // Requiring mongoose
 require('./config/mongoose')
@@ -18,9 +18,8 @@ app.engine('hbs', engine({
   defaultLayout: "main", extname: '.hbs'
 }))
 
-
-
-
+// Use body-parser
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Guiding request into route
 app.use(routes)
