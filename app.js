@@ -33,6 +33,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Use passport
 usePassport(app)
 
+// Transfer req date to res
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
+
 // Guiding request into route
 app.use(routes)
 

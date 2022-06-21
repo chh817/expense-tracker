@@ -19,7 +19,9 @@
     <div class="container-fluid">
       <a href="/" class="navbar-brand">家庭記帳本</a>
       <div class="d-flex">
+        {{#if isAuthenticated}}
         <button class="btn btn-outline-dark" type="submit">登出</button>
+        {{/if}}
       </div>
     </div>
   </nav>
