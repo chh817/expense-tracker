@@ -5,7 +5,6 @@ if (process.env.NOD_ENV !== 'production') {
   require('dotenv').config()
 }
 const Record = require('../record')
-const recordList = require('../../record.json').results
 const User = require('../user')
 const Category = require('../category')
 const db = require('../../config/mongoose')
@@ -58,28 +57,28 @@ const seedUsers = [
 
 // Successful connection to MongoDB Atlas
 db.once('open', () => {
-  return Promise.all(Array.from(userList, user => {
+  return Promise.all(Array.from(seedUsers, seedUser => {
     return bcrypt
       .genSalt(10)
-      .then(salt => bcrypt.hash(user.password, salt))
+      .then(salt => bcrypt.hash(seedUser.password, salt))
       .then(hash => User.create({
-        name: user.name,
-        email: user.email,
+        name: seedUser.name,
+        email: seedUser.email,
         password: hash
       }))
       .then(user => {
         const userId = user._id
         const ownedRecords = seedUser.ownedRecords
         return Promise.all(Array.from(ownedRecords, ownedRecord => {
-          return Category
-            .findOne({ category: ownedRecord.category })
+          const category = ownedRecord.category
+          return Category.findOne({ name: category })
             .lean()
-            .then(category => {
-              const categoryId = category._id
+            .then(categoryFind => {
+              const categoryId = categoryFind._id
+              console.log(categoryFind)
               return Record.create({
                 name: ownedRecord.name,
                 date: ownedRecord.date,
-                category: ownedRecord.category,
                 amount: ownedRecord.amount,
                 userId: userId,
                 categoryId: categoryId

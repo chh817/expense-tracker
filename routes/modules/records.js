@@ -8,10 +8,10 @@ const Category = require('../../models/category')
 router.post('/', (req, res) => {
   const { name, date, category, amount } = req.body
   const userId = req.user._id
-  return Category.findOne({ category })
+  return Category.findOne({ name: category })
     .lean()
-    .then(category => {
-      const categoryId = category._id
+    .then(categoryFind => {
+      const categoryId = categoryFind._id
       return Record.create({ name, date, amount, userId, categoryId })
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))

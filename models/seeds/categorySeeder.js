@@ -9,10 +9,10 @@ const db = require('../../config/mongoose')
 // Successful connection to MongoDB Atlas
 db.once('open', () => {
   return Promise.all(Array.from(categoryList, category => {
-    Category.create(category)
+    return Category.create(category)
   }))
     .then(() => {
-      console.log('Category seed done!')
+      console.log('Category seeds done!')
       process.exit()
     })
 })
