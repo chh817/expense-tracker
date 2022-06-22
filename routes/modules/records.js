@@ -3,7 +3,6 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
-const record = require("../../models/record")
 
 // Route for creating a new transaction record
 router.post('/', (req, res) => {

@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
         .lean()
         .then(records => {
           Promise.all(Array.from(records, record => totalAmount += record.amount))
-          return res.render('index', { totalAmount, records, categoryList, select })
+          return res.render('index', { select, totalAmount, records, categoryList })
         })
     })))
     .catch(err => console.error(err))
