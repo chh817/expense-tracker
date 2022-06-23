@@ -3,7 +3,7 @@ const express = require('express')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 const app = express()
-const port = 3000 || process.env.PORT
+const port = process.env.PORT || 3000
 if (process.env.NOD_ENV !== 'production') {
   require('dotenv').config()
 }
