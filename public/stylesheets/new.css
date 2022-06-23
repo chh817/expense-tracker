@@ -31,21 +31,38 @@
 
 #nameInput,
 #dateInput,
-#categoryInput,
 #amountInput {
   position: relative;
-  left: 65px;
+  left: 70px;
   width: 180px;
+  height: 45px;
+  border: 2px solid;
 }
 
-#submitButton {
+#categoryInput {
+  position: relative;
+  left: 70px;
+  width: 180px;
+  height: 45px;
+  border: 2px solid;
+}
+
+#addButton {
   position: relative;
   width: 180px;
+  height: 45px;
   top: 30px;
-  left: 160px;
+  left: 140px;
+  border: 2px solid;
 }
 
 .mainContainer {
   position: relative;
   left: 800px;
+}
+
+.form-group-two,
+.form-group-three,
+.form-group-four {
+  margin-top: 30px;
 }

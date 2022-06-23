@@ -74,11 +74,13 @@ db.once('open', () => {
           return Category.findOne({ name: category })
             .lean()
             .then(categoryFind => {
+              const categoryName = categoryFind.name
               const categoryId = categoryFind._id
               const categoryIcon = categoryFind.icon
               return Record.create({
                 name: ownedRecord.name,
                 date: ownedRecord.date,
+                category: categoryName,
                 amount: ownedRecord.amount,
                 userId: userId,
                 categoryId: categoryId,

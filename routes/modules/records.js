@@ -4,6 +4,7 @@ const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 const category = require('../../models/category')
+const record = require('../../models/record')
 
 // Route for clicking create button
 router.get("/", (req, res) => {
@@ -12,13 +13,14 @@ router.get("/", (req, res) => {
 
 // Route for creating a new transaction record
 router.post('/', (req, res) => {
-  const { name, date, category, amount } = req.body
+  const { nameInput, dateInput, categoryInput, amountInput } = req.body
   const userId = req.user._id
-  return Category.findOne({ name: category })
+  return Category.find({ name: categoryInput })
     .lean()
     .then(categoryFind => {
-      const categoryId = categoryFind._id
-      return Record.create({ name, date, amount, userId, categoryId })
+      const categoryId = categoryFind[0]._id
+      const icon = categoryFind[0].icon
+      return Record.create({ name: nameInput, date: dateInput, category: categoryInput, amount: amountInput, userId, categoryId, icon })
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     })
@@ -32,24 +34,24 @@ router.get('/:id/edit', (req, res) => {
     .lean()
     .then(record => {
       record.date = record.date.toJSON().slice(0, 10)
-      console.log(record.date)
-      const categoryId = record.categoryId
-      Category.findOne({ categoryId })
-        .lean()
-        .then(categoryFind => {
-          console.log(categoryFind)
-          res.render('edit', { record, categoryFind })
-        })
+      return res.render('edit', { record })
     })
     .catch(err => console.log(err))
 })
 
 // Route for editing the record info 
 router.put("/:id", (req, res) => {
-  const { name, date, category, amount } = req.body
+  const { inputName, inputDate, inputCategory, inputAmount } = req.body
   const userId = req.user._id
-  const _id = req.params.id
-  Record.findOneAndUpdate({ _id, userId }, { name, date, amount })
+  const id = req.params.id
+  Record.findById(id)
+    .then(record => {
+      record.name = inputName
+      record.date = inputDate
+      record.category = inputCategory
+      record.amount = inputAmount
+      return record.save()
+    })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
@@ -58,6 +60,8 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
+  console.log(userId)
+  console.log(_id)
   Record.findOneAndDelete({ _id, userId })
     .then(() => res.redirect("/"))
     .catch(error => console.log(error))
