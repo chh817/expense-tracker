@@ -3,7 +3,7 @@
     <div class="optionsContainer d-flex flex-row">
       <div class="input-group">
         <select class="form-select" name="select" id="select" onchange="this.form.submit()" aria-label="">
-          <option>類別</option>
+          <option value="">類別</option>
           <option value="家居物業" {{#is select '家居物業' }}selected{{/is}}>家居物業</option>
           <option value="交通出行" {{#is select '交通出行' }}selected{{/is}}>交通出行</option>
           <option value="休閒娛樂" {{#is select '休閒娛樂' }}selected{{/is}}>休閒娛樂</option>
@@ -14,31 +14,29 @@
     </div>
   </form>
   <div class="totalContainer">
-    <p class="fs-6">總金額</p>
-    <p class="fs-1">{{totalAmount}}</p>
+    <p class="total">總金額 :</p>
+    <p class="totalAmount">{{totalAmount}}</p>
   </div>
   <div class="recordsContainer">
     <ul class="list-group">
       {{#each records}}
-      <li class="list-group-item d-flex justify-content-between align-items-start">
+      <li class="recordList list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          {{#each categoryList}}
-          <i class="{{this.icon}}"></i>
-          {{/each}}
-          <div class="fw-bold">{{this.name}}</div>
-          {{this.date}}
+          <i class="{{this.icon}} fa-2x recordIcon"></i>
+          <div class="fw-bold recordName">{{this.name}}</div>
+          <div class="fw-bold recordDate">{{this.date}}</div>
         </div>
-        <span class="badge bg-primary rounded-pill">{{this.amount}}</span>
+        <span class="recordAmount">{{this.amount}}</span>
         <div class="buttonsContainer d-grid gap-2 d-md-flex justify-content-md-end">
-          <a class="btn" href="#" role="button">修改</a>
+          <a class="btn editButton" href="/records/{{this._id}}/edit" role="button">修改</a>
           <form action="" method="post">
-            <button type="submit">刪除</button>
+            <button class="btn" id="deleteButton" type="submit">刪除</button>
           </form>
         </div>
       </li>
       {{/each}}
       <div class="buttonContainer col-3 mx-auto">
-        <a class="btn" href="#" role="button">新增支出</a>
+        <a class="btn btn-outline-dark" id="createButton" href="/records" role="button">新增支出</a>
       </div>
     </ul>
   </div>

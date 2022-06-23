@@ -3,6 +3,12 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const category = require('../../models/category')
+
+// Route for clicking create button
+router.get("/", (req, res) => {
+  return res.render("new")
+})
 
 // Route for creating a new transaction record
 router.post('/', (req, res) => {
@@ -25,10 +31,15 @@ router.get('/:id/edit', (req, res) => {
   Record.findOne({ _id, userId })
     .lean()
     .then(record => {
+      record.date = record.date.toJSON().slice(0, 10)
+      console.log(record.date)
       const categoryId = record.categoryId
       Category.findOne({ categoryId })
         .lean()
-        .then(category => res.render('edit', { record, category }))
+        .then(categoryFind => {
+          console.log(categoryFind)
+          res.render('edit', { record, categoryFind })
+        })
     })
     .catch(err => console.log(err))
 })

@@ -1,13 +1,14 @@
 // Assign variables
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
+const facebookStrategy = require('passport-facebook').Strategy
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 
 module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
-  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
+  passport.use(new localStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) return done(null, false, req.flash('error', 'That email is not registered!'))

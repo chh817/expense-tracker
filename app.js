@@ -24,6 +24,9 @@ app.engine('hbs', engine({
   defaultLayout: "main", extname: '.hbs'
 }))
 
+// Use static files
+app.use(express.static("public"))
+
 // Use express-session
 app.use(session({
   secret: process.env.SESSION_SECRET,

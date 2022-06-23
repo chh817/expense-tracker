@@ -75,13 +75,14 @@ db.once('open', () => {
             .lean()
             .then(categoryFind => {
               const categoryId = categoryFind._id
-              console.log(categoryFind)
+              const categoryIcon = categoryFind.icon
               return Record.create({
                 name: ownedRecord.name,
                 date: ownedRecord.date,
                 amount: ownedRecord.amount,
                 userId: userId,
-                categoryId: categoryId
+                categoryId: categoryId,
+                icon: categoryIcon
               })
             })
         }))

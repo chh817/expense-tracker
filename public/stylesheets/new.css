@@ -1,0 +1,51 @@
+.addTitle {
+  position: relative;
+  left: 170px;
+  bottom: 20px;
+  font-size: larger;
+}
+
+#asterTwo,
+#asterThree {
+  position: relative;
+  top: 19px;
+  left: 15px;
+}
+
+#nameAdd,
+#dateAdd,
+#categoryAdd,
+#amountAdd {
+  position: relative;
+  left: 20px;
+  bottom: 5px;
+  font-size: larger;
+}
+
+#asterFour,
+#asterFive {
+  position: relative;
+  top: 17px;
+  left: 15px;
+}
+
+#nameInput,
+#dateInput,
+#categoryInput,
+#amountInput {
+  position: relative;
+  left: 65px;
+  width: 180px;
+}
+
+#submitButton {
+  position: relative;
+  width: 180px;
+  top: 30px;
+  left: 160px;
+}
+
+.mainContainer {
+  position: relative;
+  left: 800px;
+}

@@ -1,0 +1,64 @@
+.mainContainer {
+  position: relative;
+  top: 60px;
+  width: 500px;
+}
+
+.input-group {
+  position: relative;
+  right: 100px;
+  width: 330px;
+  border: 2px solid;
+}
+
+.total {
+  position: relative;
+  top: 30px;
+  right: 90px;
+}
+
+.totalAmount {
+  position: relative;
+  left: 50px;
+  bottom: 20px;
+  font-size: 50px;
+  color: darkorange;
+}
+
+.recordIcon {
+  position: relative;
+  right: 20px;
+  top: 40px;
+}
+
+.recordName,
+.recordDate {
+  position: relative;
+  left: 30px;
+}
+
+.recordsContainer {
+  position: relative;
+  right: 70px;
+}
+
+.recordAmount {
+  position: relative;
+  right: 100px;
+  top: 50px;
+}
+
+.editButton,
+#deleteButton {
+  position: relative;
+  top: 40px;
+}
+
+#createButton {
+  position: relative;
+  top: 50px;
+  right: 120px;
+  width: 160px;
+  color: azure;
+  background-color: orangered;
+}

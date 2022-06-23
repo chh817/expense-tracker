@@ -4,6 +4,7 @@ const router = express.Router()
 const users = require('./modules/users')
 const records = require('./modules/records')
 const home = require('./modules/home')
+const auth = require('./modules/auth')
 const { authenticator } = require('../middleware/auth')
 
 // Guiding request into route
