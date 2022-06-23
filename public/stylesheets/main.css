@@ -1,0 +1,11 @@
+.title {
+  color: #010203;
+  position: relative;
+  left: 30px;
+}
+
+.logoutButton {
+  color: darkorange;
+  position: relative;
+  right: 30px;
+}
