@@ -18,6 +18,7 @@
 - Body-Parser 1.20.0
 - Connect-Flash 0.1.1
 - Dotenv 16.0.1
+- Dayjs 1.11.3
 - Express-Handlebars 6.0.6
 - Handlebars-Helpers 0.9.8
 - Express-Session 1.17.3
