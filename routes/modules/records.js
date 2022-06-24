@@ -43,8 +43,8 @@ router.get('/:id/edit', (req, res) => {
 router.put("/:id", (req, res) => {
   const { inputName, inputDate, inputCategory, inputAmount } = req.body
   const userId = req.user._id
-  const id = req.params.id
-  Record.findById(id)
+  const _id = req.params.id
+  Record.findOne({ _id, userId })
     .then(record => {
       record.name = inputName
       record.date = inputDate
@@ -60,8 +60,6 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  console.log(userId)
-  console.log(_id)
   Record.findOneAndDelete({ _id, userId })
     .then(() => res.redirect("/"))
     .catch(error => console.log(error))
