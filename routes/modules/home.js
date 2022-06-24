@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const dayjs = require('dayjs')
 
 // Route for index page
 router.get('/', (req, res) => {
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
       .then(records => {
         Promise.all(Array.from(records, record => {
           totalAmount += record.amount
-          record.date = record.date.toJSON().slice(0, 10)
+          record.date = dayjs(record.date).format('YYYY/MM/DD')
         }))
         return res.render('index', { totalAmount, records })
       })

@@ -3,7 +3,7 @@ const express = require('express')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 const app = express()
-const port = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 if (process.env.NOD_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -60,6 +60,6 @@ app.use((req, res, next) => {
 app.use(routes)
 
 // Start and listen on the Express server
-app.listen(port, () => {
-  console.log(`Express is listening on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Express is listening on http://localhost:${PORT}`)
 })
