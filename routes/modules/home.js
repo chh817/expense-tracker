@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
           .then(records => {
             Promise.all(Array.from(records, record => {
               totalAmount += record.amount
-              record.date = record.date.toJSON().slice(0, 10)
+              record.date = dayjs(record.date).format('YYYY/MM/DD')
             }))
             return res.render('index', { select, totalAmount, records })
           })
